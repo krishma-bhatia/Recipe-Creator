@@ -11,8 +11,9 @@
     <header>
         <!-- logo -->
         <img src="./images/logo.jfif" class = "logo"/>
+        <h1>Recipe Book Creator</h1>
         <!-- button -->
-        <button id='addRecipeBtn'>Create Magic</button>
+        <button id='addRecipeBtn'>Create a new Recipe!</button>
     </header>
     <main>
         <section id = "formArea" class = "formArea">
@@ -22,7 +23,7 @@
                         <label for = "recipeName">Title</label>
                     </div>
                     <div class = "col-field">
-                        <input required type="text" id = 'recipeName'/>
+                        <input required  minlength = "5" type="text" id = 'recipeName'/>
                     </div>
                 </div>
                 <div class = "row">
@@ -30,7 +31,7 @@
                         <label for = "ingredients">Ingredients</label>
                     </div>
                     <div class = "col-field">
-                        <input required type="text" id = 'ingredients'/>
+                        <input required   minlength = "5"  type="text" id = 'ingredients'/>
                     </div>
                 </div>
                 <div class = "row">
@@ -38,29 +39,25 @@
                         <label for = "instructions">Instructions</label>
                     </div>
                     <div class = "col-field">
-                        <input required type="text" id = 'instructions'/>
+                        <textarea id = 'instructions'   minlength = "5"  rows="4" cols="63"></textarea>
                     </div>
                 </div>                                
             <div class="row">
-            <button type = "submit">Add Recipe</button>
+                <div class = "col-field ">
+                    <button type = "submit" class = "form-btn-style" id="add">Add Recipe</button>
+                </div>
+                <div class = "col-field ">
+                    <button  type = "button" class = "form-btn-style" id ="updateRecipeBtn" >Update Recipe</button>
+                </div>
+                <div class = "col-field">
+                    <button id = "formCloseBtn" type = "button"class = "form-btn-style">Close</button>
+                </div>
             </div>
             </form>
         </section>
-        <section id = "recipeDisplay" class = "recipes">
-            <!-- <ul>
-                <li> -->
-                    <!-- <div class = "card">
-                        <div>
-                            <img src=""/>
-                        </div>
-                        <div class="recipe-info">
-                            <h3>Recipe Name</h3>
-                            <div>Ingredients</div>
-                            <div>Instructions</div>
-                        </div>
-                    </div> -->
-                <!-- </li>
-            </ul> -->
+        <section >
+            <h1 class = "banner">RECIPES</h1>
+            <div  class = "recipes" id = "recipeDisplay"></div>
         </section>
         
     </main>

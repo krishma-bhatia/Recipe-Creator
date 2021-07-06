@@ -30,6 +30,7 @@ export class RecipeManager{
             name: name,
             ingredients: ingredients,
             instructions: instructions, 
+            
         };
         console.log("in add recipe")
         console.log(this._recipes)
@@ -60,23 +61,73 @@ export class RecipeManager{
         //Remove recipe from recipe array through array splice
         this._recipes.splice(index,1);
     }
+
+    //save to local storage
+    save()
+    {
+        //Stringify the array and call setItem F'n
+        const recipeArrayToSave = JSON.stringify(this._recipes);
+        localStorage.setItem("recipes", recipeArrayToSave);
+        //stringify current Id and save to local storage as its needed for genrating new IDs for creating recipe
+        const stringifiedCurrentId = JSON.stringify(this._currentId);
+        localStorage.setItem("Current Id", stringifiedCurrentId);
+    }
+
+    //load recipes from local storage to browser
+    load()
+    {
+        //call getItem and parse the recipe array and current id
+        const recipes = localStorage.getItem("recipes");
+
+        if(recipes)
+        {
+            this._recipes = JSON.parse(recipes);
+            console.log(this._recipes)
+        }
+
+
+        const currentId = localStorage.getItem("Current Id");
+
+        if(currentId)
+        {
+            this._currentId = Number(currentId);
+        }
+    }
+
         
-    //get recipe by id
+    //get recipe by id if needed
+    getRecipeById(id){
+         //find the Recipe Array index through recipe Id 
+       let index = this._recipes.findIndex(matchId);
+
+       //nested helper function to match Id
+       function matchId(recipe){
+           return (recipe.id === id)
+       }
+       return this._recipes[index];
+    }
+
+    updateRecipe(id,name,ingredients,instructions){
+        let recipe = this.getRecipeById(id);
+        recipe.name = name;
+        recipe.ingredients = ingredients;
+        recipe.instructions = instructions;
+    }
 }
 
 //to create Recipe card
 const createHtmlCard = (recipe) =>{
     return (`<div class = "card" id = "${recipe.id}">
-                        <div>
-                            <img src=""/>
-                        </div>
                         <div class="recipe-info">
                             <h3>${recipe.name}</h3>
+                            <h4>Ingredients</h4>
                             <div>${recipe.ingredients}</div>
+                            <h4>Instructions</h4>
                             <div>${recipe.instructions}</div>
                         </div>
-                        <div>
+                        <div class = "card-footer">
                         <button id = "deleteBtn">Delete</button>
+                        <button id = "updateBtn">Update</button>
                         </div>
                     </div>`);
 }
